@@ -1,5 +1,81 @@
 public class ExpressionTree{
-    //If you are not able to take the exam Friday, speak to me in person tomorrow.
+  /*return the expression as an infix notation string with parenthesis*/
+  /* The sample tree would be: "(3 + (2 * 10))"     */
+  public String toString(){
+    /*you are to write this method*/
+    return toStringH();
+  }
+
+  private String toStringH(){
+    if (isValue()){
+      return "" + getValue();
+    }
+    return "(" + getLeft().toString() + " " + getOp() + " " + getRight().toString() + ")";
+  }
+  /*return the expression as a postfix notation string without parenthesis*/
+  /* The sample tree would be: "3 2 10 * +"     */
+
+  public String toStringPostfix(){
+    String returnval = toStringPostfixH();
+    return returnval.substring(0, returnval.length() - 1);
+  }
+
+  private String toStringPostfixH(){
+    /*you are to write this method*/
+    if (isValue()){
+      return "" + getValue();
+    }
+    return getLeft().toStringPostfixH() + " " + getRight().toStringPostfixH() + " " + getOp() + " ";
+  }
+
+  /*return the expression as a prefix notation string without parenthesis*/
+  /* The sample tree would be: "+ 3 * 2 10"     */
+
+  public String toStringPrefix(){
+    String returnval = toStringPrefixH();
+    return returnval.substring(0, returnval.length() - 1);
+  }
+
+  private String toStringPrefixH(){
+    /*you are to write this method*/
+    if (isValue()){
+      return "" + getValue();
+    }
+    return getOp() + " " + getLeft().toStringPrefixH() + " " + getRight().toStringPrefixH() + " ";
+  }
+
+
+
+  /*return the value of the specified expression tree*/
+
+  public double evaluate(){
+    /*you are to write this method*/
+    if (isOp()){
+      return apply(getOp(), getLeft().evaluate(), getRight().evaluate());
+    }else{
+      return getValue();
+    }
+
+    }
+
+
+  /*use the correct operator on both a and b, and return that value*/
+  private double apply(char op, double a, double b){
+    /*you are to write this method*/
+    if (op == '+'){
+      return a + b;
+    }
+    if (op == '-'){
+      return a - b;
+    }
+    if (op == '*'){
+      return a * b;
+    }
+    return a / b;
+  }
+
+
+  //If you are not able to take the exam Friday, speak to me in person tomorrow.
 
   ////////////////////ONLY EDIT ABOVE THIS LINE////////////////////
 
